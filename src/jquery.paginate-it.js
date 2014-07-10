@@ -5,15 +5,15 @@
         init: function (element, options, callback) {
             element.on("click", options.next, function (event) {
                 event.preventDefault();
-                methods.load.call(this, element, options, callback);
+                var elementOptions = element.data("paginate-it");
+                methods.load.call(this, element, elementOptions, callback);
             });
-
         },
         clear: function (element, options, callback) {
             options.page = $.fn.paginateIt.defaults.page -1;
 
             // clear content of container
-            $(options.container, element).html('');
+            $(options.container, element).html("");
 
             // check if callback is a function
             if (typeof callback === "function") {
@@ -44,7 +44,7 @@
                 });
 
             // save changed page
-            element.data('paginate-it', options);
+            element.data("paginate-it", options);
         },
         load: function (element, options, callback) {
             // increment page number on each load call
@@ -98,14 +98,14 @@
         return this.each(function () {
 
             var self = $(this),
-                elementOptions = self.data('paginate-it');
+                elementOptions = self.data("paginate-it");
             if (!elementOptions) {
                 elementOptions = $.fn.paginateIt.defaults;
             }
 
             elementOptions = $.extend({}, elementOptions, options);
 
-            self.data('paginate-it', elementOptions);
+            self.data("paginate-it", elementOptions);
 
             if (methods[method]) {
                 return methods[ method ].call(self, self, elementOptions, callback);
