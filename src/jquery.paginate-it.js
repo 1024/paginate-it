@@ -10,7 +10,7 @@
             });
         },
         clear: function (element, options, callback) {
-            options.page = $.fn.paginateIt.defaults.page -1;
+            options.page = $.fn.paginateIt.defaults.page - 1;
 
             // clear content of container
             $(options.container, element).html("");
@@ -20,7 +20,7 @@
                 callback.call(this, element);
             }
         },
-        replace: function(element, options, callback) {
+        replace: function (element, options, callback) {
             var container = $(options.container, element);
             // reset page number
             options.page = $.fn.paginateIt.defaults.page;
@@ -36,6 +36,10 @@
 
                     // replace mode is hardcoded in replace plugin method
                     container.html(fetchedContent);
+
+                    if (typeof(options.success) === "function") {
+                        options.success.call(this, responseText);
+                    }
 
                     // check if callback is a function
                     if (typeof callback === "function") {
@@ -66,6 +70,10 @@
                     } else {
                         // default is replace
                         container.html(fetchedContent);
+                    }
+
+                    if (typeof(options.success) === "function") {
+                        options.success.call(this, responseText);
                     }
 
                     // check if callback is a function
